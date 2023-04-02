@@ -1,4 +1,4 @@
-name: Actions Ecosystem Create Comment
+name: Actions Ecosystem Create Comment - Extended
 description: Create a comment to an issue or a pull request.
 author: The Actions Ecosystem Authors
 inputs:
@@ -14,6 +14,11 @@ inputs:
     default: ${{ github.repository }}
   number:
     description: The number of the issue or pull request.
+    required: false
+  comment_uid:
+    description: |
+      A comment id to assign this comment with. Useful to create a single comment and 
+      update it whenever the action runs.
     required: false
 runs:
   using: node12
