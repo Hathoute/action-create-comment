@@ -60,10 +60,13 @@ function run() {
                     owner,
                     repo,
                     issue_number: pullNumber
-                }).then(payload => payload.data.filter(c => c.body.includes(`cid=${commentUid})`)))
-                    .then(comments => {
+                }).then(payload => {
+                    let comments = payload.data.filter(c => c.body.includes(`cuid=${commentUid})`));
+                    core.debug(`Found ${payload.data.length} comments in PR #${pullNumber}.`);
+                    core.debug(`Of which ${comments.length} satisfy the comment_uid condition.`);
                     if (comments.length > 0) {
                         githubCommentId = comments[0].id;
+                        core.debug(`Github comment id found: ${githubCommentId}`);
                     }
                     if (comments.length > 1) {
                         core.debug(`Illegal State: Found multiple comments with the same comment_uid ${commentUid}`);
